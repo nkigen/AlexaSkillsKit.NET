@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using AlexaSkillsKit.Helpers;
 using AlexaSkillsKit.Speechlet;
 using AlexaSkillsKit.Slu;
 
@@ -32,15 +33,15 @@ namespace AlexaSkillsKit.Json
         /// <param name="json"></param>
         /// <returns></returns>
         public static SpeechletRequestEnvelope FromJson(JObject json) {
-            if (json["version"] != null && json.Value<string>("version") != Sdk.VERSION) {
+            if (json["version"] != null && json["version"].Value<string>() != Sdk.VERSION) {
                 throw new SpeechletException("Request must conform to 1.0 schema.");
             }
 
             SpeechletRequest request;
-            JObject requestJson = json.Value<JObject>("request");
-            string requestType = requestJson.Value<string>("type");
-            string requestId = requestJson.Value<string>("requestId");
-            DateTime timestamp = requestJson.Value<DateTime>("timestamp");
+            JObject requestJson = json["request"].Value<JObject>();
+            string requestType = requestJson["type"].Value<string>();
+            string requestId = requestJson["requestId"].Value<string>();
+            DateTime timestamp = DateTimeHelpers.FromAlexaTimestamp(requestJson);
             switch (requestType) {
                 case "LaunchRequest":
                     request = new LaunchRequest(requestId, timestamp);
@@ -63,8 +64,8 @@ namespace AlexaSkillsKit.Json
 
             return new SpeechletRequestEnvelope {
                 Request = request,
-                Session = Session.FromJson(json.Value<JObject>("session")),
-                Version = json.Value<string>("version")
+                Session = Session.FromJson(json["session"].Value<JObject>()),
+                Version = json["version"].Value<string>()
             };
         }
         
