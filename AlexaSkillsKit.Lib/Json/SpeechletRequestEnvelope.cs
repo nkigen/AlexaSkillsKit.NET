@@ -61,11 +61,11 @@ namespace AlexaSkillsKit.Json
                 default:
                     throw new ArgumentException("json");
             }
-
+            
             return new SpeechletRequestEnvelope {
                 Request = request,
                 Session = Session.FromJson(json["session"].Value<JObject>()),
-                Version = json["version"].Value<string>()
+                //Version = json["version"].Value<string>()
             };
         }
         

@@ -25,13 +25,15 @@ namespace AlexaSkillsKit.Speechlet
                 }
             }
 
-            return new Session {
+            var ret = new Session {
                 SessionId = json.Value<string>("sessionId"),
                 IsNew = json.Value<bool>("new"),
                 User = User.FromJson(json.Value<JObject>("user")),
                 Application = Application.FromJson(json.Value<JObject>("application")),
                 Attributes = attributes
             };
+
+            return ret;
         }
 
         public virtual string SessionId {
@@ -61,7 +63,7 @@ namespace AlexaSkillsKit.Speechlet
 
         public virtual string[] IntentSequence {
             get {
-                return String.IsNullOrEmpty(Attributes[INTENT_SEQUENCE]) ?
+                return !Attributes.ContainsKey(INTENT_SEQUENCE) ?
                     new string[0] : 
                     Attributes[INTENT_SEQUENCE].Split(
                         new string[1] { SEPARATOR }, StringSplitOptions.RemoveEmptyEntries);
