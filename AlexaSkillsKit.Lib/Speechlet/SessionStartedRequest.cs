@@ -1,14 +1,10 @@
-﻿//  Copyright 2015 Stefan Negritoiu (FreeBusy). See LICENSE file for more information.
-
-using System;
-using System.Collections.Generic;
+﻿// Copyright 2018 Stefan Negritoiu (FreeBusy) and contributors. See LICENSE file for more information.
 
 namespace AlexaSkillsKit.Speechlet
 {
     public class SessionStartedRequest : SpeechletRequest
     {
-        public SessionStartedRequest(string requestId, DateTime timestamp) 
-            : base(requestId, timestamp) {
+        public SessionStartedRequest(SpeechletRequest other) : base(other) {
         }
     }
 }

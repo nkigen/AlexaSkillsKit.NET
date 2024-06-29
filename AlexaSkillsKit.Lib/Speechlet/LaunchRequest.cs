@@ -1,13 +1,12 @@
-﻿//  Copyright 2015 Stefan Negritoiu (FreeBusy). See LICENSE file for more information.
+﻿// Copyright 2018 Stefan Negritoiu (FreeBusy) and contributors. See LICENSE file for more information.
 
-using System;
+using Newtonsoft.Json.Linq;
 
 namespace AlexaSkillsKit.Speechlet
 {
     public class LaunchRequest : SpeechletRequest
     {
-        public LaunchRequest(string requestId, DateTime timestamp) 
-            : base(requestId, timestamp) {
+        public LaunchRequest(JObject json) : base(json) {
         }
     }
 }

@@ -1,10 +1,14 @@
-﻿//  Copyright 2015 Stefan Negritoiu (FreeBusy). See LICENSE file for more information.
+﻿// Copyright 2018 Stefan Negritoiu (FreeBusy) and contributors. See LICENSE file for more information.
 
-using System;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 
 namespace AlexaSkillsKit.Slu
 {
+    /// <summary>
+    /// https://developer.amazon.com/docs/custom-skills/request-types-reference.html#slot-object
+    /// </summary>
     public class Slot
     {
         /// <summary>
@@ -13,9 +17,15 @@ namespace AlexaSkillsKit.Slu
         /// <param name="json"></param>
         /// <returns></returns>
         public static Slot FromJson(JObject json) {
+            if (json == null) return null;
+
+            ConfirmationStatusEnum confirmationStatus;
+            Enum.TryParse(json.Value<string>("confirmationStatus"), out confirmationStatus);
             return new Slot {
                 Name = json.Value<string>("name"),
-                Value = json.Value<string>("value")
+                Value = json.Value<string>("value"),
+                ConfirmationStatus = confirmationStatus,
+                Resolutions = Resolutions.FromJson(json.Value<JObject>("resolutions"))
             };
         }
         
@@ -23,7 +33,19 @@ namespace AlexaSkillsKit.Slu
             get;
             set;
         }
+
         public virtual string Value {
+            get;
+            set;
+        }
+
+        public virtual ConfirmationStatusEnum ConfirmationStatus {
+            get;
+            set;
+        }
+
+        [JsonIgnore]
+        public virtual Resolutions Resolutions {
             get;
             set;
         }

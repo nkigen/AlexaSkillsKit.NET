@@ -1,7 +1,4 @@
-﻿//  Copyright 2015 Stefan Negritoiu (FreeBusy). See LICENSE file for more information.
-
-using System;
-using System.Collections.Generic;
+﻿// Copyright 2018 Stefan Negritoiu (FreeBusy) and contributors. See LICENSE file for more information.
 
 namespace AlexaSkillsKit.UI
 {
@@ -14,6 +11,14 @@ namespace AlexaSkillsKit.UI
         public virtual string Text {
             get;
             set;
+        }
+        
+        public static implicit operator PlainTextOutputSpeech(string spokenText)
+        {
+            return new PlainTextOutputSpeech()
+            {
+                Text = spokenText
+            };
         }
     }
 }

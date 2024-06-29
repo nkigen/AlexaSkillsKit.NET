@@ -1,16 +1,12 @@
-﻿//  Copyright 2015 Stefan Negritoiu (FreeBusy). See LICENSE file for more information.
+﻿// Copyright 2018 Stefan Negritoiu (FreeBusy) and contributors. See LICENSE file for more information.
 
 using System;
-using AlexaSkillsKit.Authentication;
-using AlexaSkillsKit.Json;
 
 namespace AlexaSkillsKit.Speechlet
 {
-    public interface ISpeechlet
+    [Obsolete("Does not support context object. Implement ISpeechletWithContext instead")]
+    public interface ISpeechlet : ISpeechletBase
     {
-        bool OnRequestValidation(
-            SpeechletRequestValidationResult result, DateTime referenceTimeUtc, SpeechletRequestEnvelope requestEnvelope);
-        
         SpeechletResponse OnIntent(IntentRequest intentRequest, Session session);
         SpeechletResponse OnLaunch(LaunchRequest launchRequest, Session session);
         void OnSessionStarted(SessionStartedRequest sessionStartedRequest, Session session);

@@ -1,17 +1,13 @@
-﻿//  Copyright 2015 Stefan Negritoiu (FreeBusy). See LICENSE file for more information.
+﻿// Copyright 2018 Stefan Negritoiu (FreeBusy) and contributors. See LICENSE file for more information.
 
 using System;
 using System.Threading.Tasks;
-using AlexaSkillsKit.Authentication;
-using AlexaSkillsKit.Json;
 
 namespace AlexaSkillsKit.Speechlet
 {
-    public interface ISpeechletAsync
+    [Obsolete("Does not support context object. Implement ISpeechletWithContextAsync instead")]
+    public interface ISpeechletAsync : ISpeechletBase
     {
-        bool OnRequestValidation(
-            SpeechletRequestValidationResult result, DateTime referenceTimeUtc, SpeechletRequestEnvelope requestEnvelope);
-        
         Task<SpeechletResponse> OnIntentAsync(IntentRequest intentRequest, Session session);
         Task<SpeechletResponse> OnLaunchAsync(LaunchRequest launchRequest, Session session);
         Task OnSessionStartedAsync(SessionStartedRequest sessionStartedRequest, Session session);
